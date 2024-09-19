@@ -1,0 +1,203 @@
+@font-face {
+  font-family: "Coves";
+  src: url("/fonts/Coves_Bold.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "unisans";
+  src: url("/fonts/unisans.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "Fosterama";
+  src: url("/fonts/First.otf") format("truetype");
+}
+
+:root {
+  --g2: rgb(0, 0, 0);
+  --g1: #fac117;
+}
+
+*{
+  overflow: hidden;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+img {
+  position: fixed;
+  top: -16%;
+  left: -4%;
+  scale: 35%;
+  z-index: 1;
+}
+
+#pseudo {
+  position: absolute;
+  background-color: #dccca0;
+  top: 0;
+  left: 0;
+  width: 35.3%;
+  height: 100%;
+  z-index: -2;
+}
+
+.form-container {
+  position: fixed;
+  left: 0;
+  top: 40%;
+  height: 100vh;
+  width: 30%;
+  background-color: #dccca0;
+  padding: 40px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: calc(100% - 24px);
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #f6eed8;
+}
+
+button[type="submit"] {
+  width: calc(100% - 24px);
+  padding: 12px;
+  margin-top: 20px;
+  background-color: #d4af37;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #b38f26;
+}
+
+.backdrop {
+  position: absolute;
+  left: 35%;
+  height: 100%;
+  width: 65%;
+  z-index: -10;
+}
+
+.card {
+  z-index: 10;
+  position: absolute;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0px 10px 15px 10px rgb(0 0 0 / 15%);
+  background-color: rgba(228, 228, 228, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.534);
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px rgba(57, 57, 57, 0.3);
+  
+}
+
+.cardN {
+  position: absolute;
+  font-size: 100px;
+  top: 3%;
+  left: 7%;
+  color: #fac117;
+  font-family: Coves;
+  visibility: hidden;
+}
+
+.cardTagline {
+  position: absolute;
+  font-size: 30px;
+  top: 65%;
+  left: 9%;
+  color: rgb(255, 255, 255);
+  font-family: Fosterama;
+  visibility: hidden;
+}
+
+@keyframes background-pan {
+  from {
+    background-position: 0% center;
+  }
+
+  to {
+    background-position: -200% center;
+  }
+}
+
+.backdrop {
+  animation: background-pan 2s linear infinite;
+  background: radial-gradient(
+    circle at center,
+    var(--g2),
+    var(--g1),
+    var(--g2)
+  );
+
+  background-size: 200%;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0px;
+}
+
+.backdrop.toggled {
+  animation: none;
+}
+
+.backdrop.toggled > #title {
+  opacity: 0;
+}
+
+.backdrop.toggled > #icon {
+  opacity: 1;
+}
+
+.backdrop.toggled > #tiles > .tile:hover {
+  opacity: 0.1 !important;
+}
+
+.centered {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#tiles {
+  height: calc(100vh - 1px);
+  width: calc(100vw - 1px);
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns: repeat(var(--columns), 1fr);
+  grid-template-rows: repeat(var(--rows), 1fr);
+}
+
+.tile {
+  position: relative;
+}
+
+.tile:hover:before {
+  background-color: rgb(30, 30, 30);
+}
+
+.tile:before {
+  background-color: rgb(15, 15, 15);
+  content: "";
+  inset: 0.5px;
+  position: absolute;
+}

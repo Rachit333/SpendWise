@@ -1,0 +1,387 @@
+@font-face {
+  font-family: "Coves";
+  src: url("/fonts/Coves_Bold.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "unisans";
+  src: url("/fonts/unisans.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "Fosterama";
+  src: url("/fonts/First.otf") format("truetype");
+}
+
+* {
+  overflow: hidden;
+}
+
+body {
+  font-family: system-ui;
+  background-color: #fac117;
+  margin: 0;
+  padding: 0;
+}
+
+#menulogo {
+  position: fixed;
+  top: -34.5%;
+  left: -18%;
+  scale: 7%;
+  z-index: 1;
+}
+
+#home{
+  position: absolute;
+  font-family: Coves;
+  font-size: 22px;
+  left: 40%;
+  top: 2.5%;
+}
+
+
+.navbar {
+  color: #181818;
+  padding: 10px 0;
+  position: fixed;
+  top: 20px;
+  left: 0;
+  z-index: 1000;
+  height: 100%; 
+  width: 200px; 
+}
+
+#dashboard, #community-chat, #settings, #logout{
+  position: absolute;
+  left: 15%;
+}
+
+#dashboard{
+  top: 25%;
+}
+
+#community-chat{
+  top: 32%;
+}
+
+#settings{
+  top: 39%;
+}
+
+#logout{
+  top: 46%;
+}
+
+.container {
+  padding: 0;
+}
+
+.navbar-brand a {
+  display: block;
+  color: #181818;
+  text-decoration: none;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.navbar-menu {
+  padding: 0;
+}
+
+.navbar-menu a {
+  display: block;
+  color: #181818;
+  text-decoration: none;
+  padding: 10px 20px; 
+  font-size: 1rem;
+}
+
+.navbar-menu a:last-child {
+  margin-bottom: 20px; 
+}
+
+.navbar-menu a.active {
+  color: #0044ffeb; 
+}
+
+.backdrop {
+  position: absolute;
+  top: 3%;
+  left: 15%;
+  height: 94%;
+  width: 83%;
+  border-radius: 20px;
+  background-color: #fffbe9;
+}
+
+.backdrop2 {
+  position: absolute;
+  top: 40%;
+  left: 0%;
+  height: 60%;
+  width: 100%;
+  border-radius: 20px;
+  background-color: #fffced;
+  box-shadow: 0px -10px 20px rgba(176, 176, 176, 0.5);
+}
+
+#greet {
+  color: rgba(71, 71, 71, 0.74);
+  position: absolute;
+  top: 3%;
+  left: 5.4%;
+  font-size: 14px;
+}
+
+#heading {
+  position: absolute;
+  top: 3.7%;
+  left: 5.2%;
+  font-family: Coves;
+  font-size: 45px;
+}
+
+.yg {
+  position: relative;
+  top: 45%;
+  left: 8.5%;
+  color: rgb(58, 58, 58) !important;
+  font-size: 20px !important;
+  font-family: Coves;
+}
+
+.card {
+  position: absolute;
+  background-color: #fffbe9;
+  height: 15%;
+  width: 20%;
+  border: 1.3px solid black;
+  border-radius: 15px;
+}
+
+#c1 {
+  top: 18%;
+  left: 5%;
+}
+
+#c2 {
+  top: 18%;
+  left: 28%;
+}
+
+#c3 {
+  top: 18%;
+  left: 51%;
+}
+
+#c4 {
+  top: 18%;
+  left: 74%;
+}
+
+#yg1 {
+  left: 12.8%;
+}
+
+#yg2 {
+  left: 14.6%;
+}
+
+#yg3 {
+  left: 11.2%;
+}
+
+#yg4 {
+  left: 7.5%;
+}
+
+#i1 {
+  background-image: url("/images/money_bag.png");
+  background-size: cover;
+}
+
+#i2 {
+  margin-top: 3px;
+  left: -44%;
+  scale: 17%;
+}
+
+#i3 {
+  background-image: url("/images/saveGap.png");
+  background-size: cover;
+}
+
+#goalFuture {
+  font-family: Coves;
+  font-size: 35px;
+  position: absolute;
+  left: 41%;
+  top: 20%;
+  transition: color 0.2s ease;
+}
+
+#goalFuture:hover {
+  cursor: pointer;
+  color: #fac117;
+}
+
+.wallet_container {
+  position: relative;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  background-color: black;
+  top: -22%;
+  left: 9.3%;
+}
+
+.wallet {
+  position: absolute;
+  padding: 25%;
+  top: -92%;
+  left: -43.1%;
+  scale: 20%;
+}
+
+.trip_head{
+  position: absolute;
+  font-family: Coves;
+  top: 18%;
+}
+
+.trip_data {
+  position: absolute;
+  font-family: Coves;
+  top: 32%;
+}
+
+.charts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.dashboard-content {
+  text-align: center;
+  padding: 100px 0;
+}
+
+.dashboard-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+#delc {
+  position: absolute;
+  left: 59.5%;
+  margin-top: 2%;
+}
+
+#daily-expenses-line-chart {
+  background-color: #f9daef;
+  width: 450px;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-right: 20px;
+  border-radius: 20px;
+}
+
+.transactioins {
+  position: absolute;
+  left: 59.5%;
+  top: 58%;
+  border: 2px solid rgba(0, 0, 0, 0.525);
+  border-radius: 20px;
+  height: 36%;
+  width: 450px;
+}
+
+.transactioins h1 {
+  position: absolute;
+  font-size: 20px;
+  font-family: Coves;
+  left: 3%;
+}
+
+.transactioins p {
+  position: absolute;
+  font-size: 15px;
+  font-family: Coves;
+  top: 25%;
+}
+
+#txnp1 {
+  left: 3.5%;
+}
+
+#txnp2 {
+  left: 40%;
+}
+
+#txnp3 {
+  left: 70%;
+}
+
+#fBottom {
+  position: absolute;
+  width: 415px;
+  top: 48%;
+  left: 3.5%;
+  border-bottom: 2px solid #6e6e6e6a;
+}
+
+#fBottom2 {
+  position: absolute;
+  width: 90%;
+  top: 25%;
+  left: 5%;
+  border-bottom: 2px solid #151515c2;
+}
+
+#t1 {
+  position: absolute;
+  top: 50%;
+  left: 3.5%;
+}
+
+.frnds {
+  position: relative;
+  top: 5%;
+  left: 5%;
+  height: 90%;
+  width: 51%;
+  border: 2px solid rgba(0, 0, 0, 0.525);
+  border-radius: 20px;
+}
+
+.frnds h1{
+  position: absolute;
+  left: 5%;
+  font-family: Coves;
+  font-size: 30px;
+}
+
+.addTripicon {
+  height: 30px;
+  width: 30px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='rgba(248,1,1,1)'%3E%3Cpath d='M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 11H7V13H11V17H13V13H17V11H13V7H11V11Z'/%3E%3C/svg%3E");
+  position: absolute;
+  left: 45%;
+  bottom: 10%;
+  transition: 0.3s;
+}
+
+.addTripicon:hover {
+  cursor: pointer;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='rgba(77,198,34,1)' %3E%3Cpath d='M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 11H7V13H11V17H13V13H17V11H13V7H11V11Z'/%3E%3C/svg%3E");
+}
+
+#avatar{
+  position: absolute;
+  scale: 25%;
+  background-color: white;
+  border-radius: 50%;
+  bottom: 2%;
+  left: 0%;
+}

@@ -1,0 +1,156 @@
+@font-face {
+  font-family: "Coves";
+  src: url("/fonts/Coves_Bold.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "unisans";
+  src: url("/fonts/unisans.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "Fosterama";
+  src: url("/fonts/First.otf") format("truetype");
+}
+
+* {
+  overflow: hidden;
+}
+
+body {
+  font-family: system-ui;
+  background-color: #fac117;
+  margin: 0;
+  padding: 0;
+}
+
+#menulogo {
+  position: fixed;
+  top: -34.5%;
+  left: -18%;
+  scale: 7%;
+  z-index: 1;
+}
+
+#home {
+  position: absolute;
+  font-family: Coves;
+  font-size: 22px;
+  left: 40%;
+  top: 2.5%;
+}
+
+.navbar {
+  color: #181818;
+  padding: 10px 0;
+  position: fixed;
+  top: 20px;
+  left: 0;
+  z-index: 1000;
+  height: 100%;
+  width: 200px;
+}
+
+#dashboard,
+#chat,
+#settings,
+#logout {
+  position: absolute;
+  left: 15%;
+}
+
+#dashboard {
+  top: 25%;
+}
+
+#chat {
+  top: 32%;
+}
+
+#settings {
+  top: 39%;
+}
+
+#logout {
+  top: 46%;
+}
+
+.container {
+  padding: 0;
+}
+
+.navbar-brand a {
+  display: block;
+  color: #181818;
+  text-decoration: none;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.navbar-menu {
+  padding: 0;
+}
+
+.navbar-menu a {
+  display: block;
+  color: #181818;
+  text-decoration: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+}
+
+.navbar-menu a:last-child {
+  margin-bottom: 20px;
+}
+
+.navbar-menu a.active {
+  color: #0044ffeb;
+}
+
+.backdrop {
+  position: absolute;
+  top: 3%;
+  left: 15%;
+  height: 94%;
+  width: 83%;
+  border-radius: 20px;
+  background-color: #fffbe9;
+}
+
+#messageInput {
+  position: absolute;
+  left: 22%;
+  bottom: 10%;
+  height: 50px;
+  width: 63%;
+  border: 2px black solid;
+  border-radius: 10px;
+  background-color: transparent;
+  font-size: 14px;
+}
+
+#sendButton {
+  background-color: #353535;
+  color: #fffbe9;
+  position: absolute;
+  right: 6%;
+  bottom: 10.5%;
+  border: none;
+  border-radius: 10px;
+  height: 52px;
+  width: 100px;
+  transition: 0.2s;
+}
+
+#sendButton:hover{
+  background-color: #1a1616;
+  cursor: pointer;
+}
+
+
+#messages{
+  position: absolute;
+  top: 10%;
+  left: 22%;
+  margin: 10px;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/chat_styles.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Chat App</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <img id="menulogo" src="/images/logo.png" />
+          <a href="/" id="home">SpendWise</a>
+        </div>
+        <div class="navbar-menu">
+          <a href="/dashboard" id="dashboard">
+            <span>Dashboard</span>
+          </a>
+          
+          <a href="/chat" id="chat">
+            <span>Community Chat</span>
+          </a>
+          
+          <a href="/#" id="settings">
+            <span>Settings</span>
+          </a>
+          
+          <% if (!user) { %> <% } else { %>
+          <a href="/auth/logout" id="logout">Logout</a>
+          <% } %>
+        </div>
+      </div>
+    </nav>
+
+    <div class="backdrop"></div>
+
+    <ul id="messages"></ul>
+  <input id="messageInput" autocomplete="off" placeholder="Type something...">
+  <button id="sendButton">Send</button>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    
+    const messages = document.getElementById('messages');
+    const messageInput = document.getElementById('messageInput');
+    const sendButton = document.getElementById('sendButton');
+
+    sendButton.addEventListener('click', () => {
+      const message = messageInput.value.trim();
+      var username = "<%= user.username %>";
+      if (message !== '') {
+        socket.emit('message', { user: username, message });
+        messageInput.value = '';
+      }
+    });
+
+    socket.on('message', (data) => {
+      const li = document.createElement('li');
+      li.textContent = `${data.user}: ${data.message}`;
+      messages.appendChild(li);
+    });
+
+    $(document).ready(function () {
+        var url = window.location.pathname;
+        $(".navbar-menu a").each(function () {
+          if ($(this).attr("href") === url) {
+            $(this).addClass("active");
+          }
+        });
+      });
+  </script>
+  </body>
+</html>

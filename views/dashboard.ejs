@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/dashboard_styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <img id="avatar" alt="Avatar">
+
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <img id="menulogo" src="/images/logo.png" />
+          <a href="/" id="home">SpendWise</a>
+        </div>
+        <div class="navbar-menu">
+          <a href="/dashboard" id="dashboard">
+            <span>Dashboard</span>
+          </a>
+
+          <a href="/chat" id="community-chat">
+            <span>Community Chat</span>
+          </a>
+
+          <a href="/#" id="settings">
+            <span>Settings</span>
+          </a>
+
+          <% if (!user) { %> <% } else { %>
+          <a href="/auth/logout" id="logout">Logout</a>
+          <% } %>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="backdrop">
+      <div class="dashboard-content">
+        <p id="greet">Hi @<%= user.username %>, here are your stats</p>
+        <h1 id="heading">Dashboard</h1>
+
+        <div class="card" id="c1">
+          <h1 class="yg" id="yg1">Savings Target</h1>
+          <div id="goalFuture" onclick="changeGoal()"><%= user.goal %></div>
+          <div class="wallet_container"></div>
+          <img class="wallet" src="/images/wallet_transparent.png" />
+        </div>
+
+        <div class="card" id="c2">
+          <h1 class="yg" id="yg2">Bank Balance</h1>
+          <div id="goalFuture">23400</div>
+          <div class="wallet_container" id="i1"></div>
+        </div>
+
+        <div class="card" id="c3">
+          <h1 class="yg" id="yg3">Total Spend</h1>
+          <div id="goalFuture">14067</div>
+          <div class="wallet_container"></div>
+          <img class="wallet" id="i2" src="/images/spend.png" />
+        </div>
+
+        <div class="card" id="c4">
+          <h1 class="yg" id="yg4">Goal Gap</h1>
+          <div id="goalFuture">2333</div>
+          <div class="wallet_container" id="i3"></div>
+        </div>
+
+        <div class="backdrop2">
+          <div class="charts">
+            <div class="chart-container">
+              <div id="delc">
+                <canvas id="daily-expenses-line-chart"></canvas>
+              </div>
+            </div>
+
+            <div class="transactioins">
+              <h1>Transactions</h1>
+              <p id="txnp1">TXN ID</p>
+              <p id="txnp2">Time</p>
+              <p id="txnp3">Type</p>
+              <div id="fBottom"></div>
+              <p id="t1">1947738395941124</p>
+              <p id="t1" style="left: 40%">14:54</p>
+              <p id="t1" style="left: 70%">Food</p>
+              <p id="t1" style="left: 80%; top: 49.4%">🍕</p>
+              <p id="t1" style="top: 70%">2943738345943416</p>
+              <p id="t1" style="left: 40%; top: 70%">11:39</p>
+              <p id="t1" style="left: 70.2%; top: 70%">Cab</p>
+              <p id="t1" style="left: 80%; top: 67.4%">🚕</p>
+            </div>
+          </div>
+
+          <div class="frnds">
+            <h1>Trip</h1>
+            <div class="addTripicon" onclick="addTrip()"></div>
+            <div class="trip_head" style="left: 5%">Location</div>
+            <div class="trip_head" style="left: 25%">Squad Size</div>
+            <div class="trip_head" style="left: 50%">Total Share</div>
+            <div class="trip_head" style="left: 73%">Your Share</div>
+            <div id="fBottom2"></div>
+
+            <div id="tripContainer"></div>
+
+            <script>
+              var trips = [
+                {
+                  location: "Goa",
+                  squadSize: 5,
+                  totalShare: 25000,
+                  yourShare: 5000,
+                },
+                {
+                  location: "Gulmarg",
+                  squadSize: 3,
+                  totalShare: 27000,
+                  yourShare: 9520,
+                },
+                {
+                  location: "Shimla",
+                  squadSize: 1,
+                  totalShare: 7000,
+                  yourShare: 7000,
+                },
+              ];
+
+              function addTrip() {
+                var location = prompt("Enter location:");
+                var squadSize = parseInt(prompt("Enter squad size:"));
+                var totalShare = parseFloat(prompt("Enter total share:"));
+                var yourShare = parseFloat(prompt("Enter your share:"));
+
+                if (
+                  location &&
+                  !isNaN(squadSize) &&
+                  !isNaN(totalShare) &&
+                  !isNaN(yourShare)
+                ) {
+
+                  var newTrip = {
+                    location: location,
+                    squadSize: squadSize,
+                    totalShare: totalShare,
+                    yourShare: yourShare,
+                  };
+
+                  trips.push(newTrip);
+
+                  renderTrips();
+                } else {
+                  alert("Invalid input. Please try again.");
+                }
+              }
+
+              function createTripElement(trip, marginTop) {
+                var tripContainer = document.getElementById("tripContainer");
+                var tripDiv = document.createElement("div");
+
+                var locationDiv = createTripDetailElement(
+                  trip.location,
+                  "5.2%",
+                  marginTop
+                );
+                tripDiv.appendChild(locationDiv);
+
+                var squadSizeDiv = createTripDetailElement(
+                  trip.squadSize,
+                  "25.2%",
+                  marginTop
+                );
+                tripDiv.appendChild(squadSizeDiv);
+
+                var totalShareDiv = createTripDetailElement(
+                  trip.totalShare,
+                  "50.2%",
+                  marginTop
+                );
+                tripDiv.appendChild(totalShareDiv);
+
+                var yourShareDiv = createTripDetailElement(
+                  trip.yourShare,
+                  "73.2%",
+                  marginTop
+                );
+                tripDiv.appendChild(yourShareDiv);
+
+                tripContainer.appendChild(tripDiv);
+              }
+
+              function createTripDetailElement(data, leftPosition, marginTop) {
+                var detailDiv = document.createElement("div");
+                detailDiv.classList.add("trip_data");
+                detailDiv.style.left = leftPosition;
+                detailDiv.style.marginTop = marginTop + "%";
+                detailDiv.textContent = data;
+                return detailDiv;
+              }
+
+              function renderTrips() {
+                var tripContainer = document.getElementById("tripContainer");
+                tripContainer.innerHTML = ""; 
+
+                var marginTop = 0;
+                trips.forEach(function (trip) {
+                  createTripElement(trip, marginTop);
+                  marginTop += 6;
+                });
+              }
+              renderTrips();
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function changeGoal() {
+        var newGoal = prompt("Enter your new goal:");
+        if (newGoal !== null) {
+          fetch("/update-goal", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ goal: newGoal }),
+          })
+            .then((response) => {
+              if (response.ok) {
+                document.getElementById("goalFuture").innerText = newGoal;
+              } else {
+                console.error("Failed to update goal:", response.statusText);
+              }
+            })
+            .catch((error) => {
+              console.error("Error updating goal:", error);
+            });
+        }
+      }
+
+      const dailyExpensesData = {
+        labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"],
+        datasets: [
+          {
+            label: "Daily Expenses",
+            data: [80, 60, 170, 200, 110, 75, 225],
+            borderColor: "rgba(75, 192, 192, 1)",
+            backgroundColor: "rgba(75, 192, 192, 0.5)",
+            borderWidth: 1,
+            fill: false,
+            cubicInterpolationMode: "monotone",
+          },
+        ],
+      };
+
+      const ctxLine = document
+        .getElementById("daily-expenses-line-chart")
+        .getContext("2d");
+      new Chart(ctxLine, {
+        type: "line",
+        data: dailyExpensesData,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: { display: false },
+              grid: { display: false },
+              ticks: { display: false },
+              display: false,
+            },
+            x: {
+              title: { display: false },
+              gridlines: {
+                display: false,
+                drawBorder: false,
+                drawTicks: false,
+              },
+              ticks: { display: false },
+              display: false,
+            },
+          },
+          plugins: { legend: { display: false } },
+        },
+      });
+
+      $(document).ready(function () {
+        var url = window.location.pathname;
+        $(".navbar-menu a").each(function () {
+          if ($(this).attr("href") === url) {
+            $(this).addClass("active");
+          }
+        });
+      });
+
+      document.addEventListener('DOMContentLoaded', () => {
+            const imgElement = document.getElementById('avatar');
+            const randomDigits = ('0' + Math.floor(Math.random() * 100)).slice(-2);
+            const newHash = '7bf63f0d2df1671b8a4715aed0fbbb' + randomDigits;
+            const newSrc = `https://gravatar.com/avatar/${newHash}?s=200&d=robohash&r=x`;
+            imgElement.setAttribute('src', newSrc);
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+
+  <div class="card">
+    <p class="cardN">SPENDWISE</p>
+    <p class="cardTagline">Where Every Expense Tells a Story.</p>
+  </div>
+
+  <img src="/images/logo.png" />
+  
+  <div class="form-container">
+    <h1>Register</h1>
+    <form action="/auth/register" method="post">
+      <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <div id="pseudo"></div>
+  <div class="backdrop">
+    <div id="tiles"></div>
+  </div>
+
+  <script>
+    window.onload = function () {
+      changeSizeAndMove();
+    };
+    function changeSizeAndMove() {
+      var div = document.querySelector(".card");
+      var content1 = document.querySelector(".cardN");
+      var content2 = document.querySelector(".cardTagline");
+      var screenWidth = window.innerWidth;
+      var screenHeight = window.innerHeight;
+      var targetWidth = 600;
+      var targetHeight = 350;
+      var targetX = 48.6;
+      var targetY = 29;
+
+      div.style.width = "100%";
+      div.style.height = "100%";
+      div.style.left = "0";
+      div.style.top = "0";
+
+
+      div.style.transition =
+        "transform 0.7s ease, width 0.7s ease, height 0.7s ease, left 0.7s ease, top 0.7s ease";
+
+      setTimeout(function () {
+        div.style.width = targetWidth + "px";
+        div.style.height = targetHeight + "px";
+        div.style.left = targetX + "%";
+        div.style.top = targetY + "%";
+        div.style.backgroundColor = "rgba(228, 228, 228, 0.321)";
+      }, 150);
+
+      setTimeout(function () {
+        content1.style.visibility = "visible";
+        content2.style.visibility = "visible";
+        
+      },1000);
+    }
+  </script>
+
+  <script>
+    const wrapper = document.getElementById("tiles");
+
+    let columns = 0,
+      rows = 0,
+      toggled = false;
+
+    const toggle = () => {
+      toggled = !toggled;
+
+      document.querySelector(".backdrop").classList.toggle("toggled");
+    };
+
+    const handleOnClick = (index) => {
+      toggle();
+
+      anime({
+        targets: ".tile",
+        opacity: toggled ? 0 : 1,
+        delay: anime.stagger(50, {
+          grid: [columns, rows],
+          from: index,
+        }),
+      });
+    };
+
+    const createTile = (index) => {
+      const tile = document.createElement("div");
+
+      tile.classList.add("tile");
+
+      tile.style.opacity = toggled ? 0 : 1;
+
+      tile.onclick = (e) => handleOnClick(index);
+
+      return tile;
+    };
+
+    const createTiles = (quantity) => {
+      Array.from(Array(quantity)).map((tile, index) => {
+        wrapper.appendChild(createTile(index));
+      });
+    };
+
+    const createGrid = () => {
+      wrapper.innerHTML = "";
+
+      const size = document.body.clientWidth > 800 ? 100 : 50;
+
+      columns = Math.floor(document.body.clientWidth / size);
+      rows = Math.floor(document.body.clientHeight / size);
+
+      wrapper.style.setProperty("--columns", columns);
+      wrapper.style.setProperty("--rows", rows);
+
+      createTiles(columns * rows);
+    };
+
+    createGrid();
+
+    window.onresize = () => createGrid();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <link rel="stylesheet" type="text/css" href="/home_styles.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <img id="menulogo" src="/images/logo.png" />
+        <div class="navbar-brand">SpendWise</div>
+        <div class="navbar-menu">
+          <a id="loginPage" href="/auth/login">Sign in</a>
+          <a id="regPage" href="/auth/register">Get started</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="main">
+      <div class="typewriter">
+        <h1 id="typewriter-text"></h1>
+      </div>
+      <div class="fade-in-text" id="fade-in-text">
+        Effortlessly manage your money, seamlessly track expenses, and pave your
+        way to financial freedom. Empower yourself to make wise spending
+        decisions and build a brighter financial future with
+        <div id="comName">SpendWise.</div>
+      </div>
+    </div>
+
+    <canvas class="zdog-canvas" width="400" height="400"></canvas>
+
+    <script src="https://unpkg.com/zdog@1/dist/zdog.dist.min.js"></script>
+    <script>
+      let illo = new Zdog.Illustration({
+        element: ".zdog-canvas",
+        dragRotate: true,
+      });
+
+      new Zdog.Ellipse({
+        addTo: illo,
+        diameter: 320,
+        stroke: 20,
+        color: "#6A68F9",
+        rotate: { x: Math.PI / 3.3 },
+      });
+
+      new Zdog.Ellipse({
+        addTo: illo,
+        diameter: 350,
+        stroke: 20,
+        color: "rgba(0,0,0,0.2)",
+        rotate: { x: Math.PI / 3.3 },
+      });
+
+      function animate() {
+        illo.updateRenderGraph();
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    </script>
+
+    <script>
+      const text = "Your Financial Superpower.";
+
+      function typeWriter(text, i, fnCallback) {
+        if (i < text.length) {
+          document.getElementById("typewriter-text").innerHTML +=
+            text.charAt(i);
+          setTimeout(function () {
+            typeWriter(text, i + 1, fnCallback);
+          }, 50);
+        } else if (typeof fnCallback == "function") {
+          setTimeout(fnCallback, 700);
+        }
+      }
+
+      window.onload = function () {
+        typeWriter(text, 0, function () {
+          console.log("Typing animation complete!");
+        });
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        var fadeText = document.getElementById("fade-in-text");
+        setTimeout(function () {
+          fadeText.style.opacity = 1;
+        }, 1500);
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const targetNumber = Math.round(Math.random() * (2000 + 1)) + 200;
+        const duration = 2000;
+        const fps = 30;
+        const interval = duration / (targetNumber - 200) / fps;
+
+        let currentNumber = 400;
+        const usersCountElement = document.getElementById("usersCount");
+
+        const updateNumber = () => {
+          usersCountElement.textContent = `Trusted by ${currentNumber}+ users`;
+          currentNumber++;
+          if (currentNumber > targetNumber) {
+            clearInterval(animationInterval);
+          }
+        };
+
+        updateNumber();
+        const animationInterval = setInterval(updateNumber, interval);
+      });
+
+      function resetCard() {
+        var div = document.querySelector(".card");
+        div.style.transition = "none";
+        div.style.width = "";
+        div.style.height = "";
+        div.style.transform = "";
+        div.style.zIndex = "";
+        div.style.backgroundColor = "rgba(228, 228, 228, 0.321)"
+        n1.style.color = "white";
+        n2.style.color = "white";
+        n3.style.color = "white";
+        n4.style.color = "white";
+        cname.style.color = "white";
+        cdate.style.color = "white";
+        image.style.opacity = "1";
+      }
+
+      function setupCard() {
+        resetCard();
+      }
+
+      function changeSizeAndRotate() {
+        var div = document.querySelector(".card");
+        var n1 = document.getElementById("n1");
+        var n2 = document.getElementById("n2");
+        var n3 = document.getElementById("n3");
+        var n4 = document.getElementById("n4");
+        var cname = document.getElementById("cname");
+        var cdate = document.getElementById("cdate");
+        var image = document.getElementById("cardlogo");
+        var zoomX = window.innerWidth / div.offsetWidth;
+        var zoomY = window.innerHeight / div.offsetHeight;
+        var zoom = Math.max(zoomX, zoomY);
+        var currentRotation = getRotationAngle(div);
+
+        div.style.transition =
+          "transform 0.5s ease, width 0.5s ease, height 0.5s ease";
+        n1.style.color = "transparent";
+        n2.style.color = "transparent";
+        n3.style.color = "transparent";
+        n4.style.color = "transparent";
+        cname.style.color = "transparent";
+        cdate.style.color = "transparent";
+        image.style.opacity = "0";
+
+        setTimeout(function () {
+          div.style.width = div.offsetWidth * zoom + "px";
+          div.style.height = div.offsetHeight * zoom + "px";
+          div.style.backgroundColor = "rgba(228, 228, 228, 0.9)";
+          div.style.zIndex = 10;
+
+          var newRotation = currentRotation - 20;
+
+          div.style.transform =
+            "translate(-63%, -30%) rotate(" + newRotation + "deg)";
+        }, 10);
+
+        setTimeout(function () {
+          window.location.href = "/auth/login";
+        }, 780);
+      }
+
+      function getRotationAngle(element) {
+        var style = window.getComputedStyle(element);
+        var matrix =
+          style.transform || style.webkitTransform || style.mozTransform;
+
+        if (matrix === "none") {
+          return 0;
+        }
+
+        var values = matrix.split("(")[1].split(")")[0].split(",");
+        var a = values[0];
+        var b = values[1];
+        var angle = Math.atan2(b, a);
+        return angle * (180 / Math.PI);
+      }
+
+      window.addEventListener("pageshow", function (event) {
+        if (event.persisted) {
+          resetCard();
+        }
+      });
+
+      document
+        .querySelector(".card")
+        .addEventListener("click", changeSizeAndRotate);
+    </script>
+
+    <div class="card">
+      <img id="cardlogo" src="/images/logo.png" />
+      <p class="cardN" id="n1">1234</p>
+      <p class="cardN" id="n2">2345</p>
+      <p class="cardN" id="n3">5678</p>
+      <p class="cardN" id="n4">8901</p>
+      <p id="cname">Anikita Arora</p>
+      <p id="cdate">EXP: 10/28</p>
+    </div>
+
+    <div id="arrow"><img src="/images/up-arrow.png" /></div>
+    <div id="usersCount"></div>
+
+    <button class="btn" onclick="changeSizeAndRotate()">
+      Start spending wise
+    </button>
+  </body>
+</html>
